@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#*************************#
+#        autotorate       #
+#                         #
+#  author: rick@gnous.eu  #
+#      licence: GPL3      #
+#*************************#
+
+while [ 1 ]
+do
+    state=$(cat /sys/devices/platform/thinkpad_acpi/hotkey_tablet_mode)
+    rotateState=$(cat $HOME/.bin/rotationmode)
+    if [ $state -eq 0 ] && [ $rotateState -eq 4 ]
+    then
+        rotateFunction
+    elif [ $state -eq 1 ] && [ $rotateState -eq 0 ]
+    then
+        rotateFunction inverted
+    fi
+done

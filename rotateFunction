@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#*************************#
+#     rotateFunction      #
+#                         #
+#  author: rick@gnous.eu  #
+#      licence: GPL3      #
+#*************************#
+
+# a modifier selon l'id du stylet trouvable dans la commande
+# xsetwacom --list devices
+idStylus=12
+
+# Fonctions permettant de tourner l'écran et le stylet
+# Chaque position a un code qui est mit dans le fichier $HOME/.bin/rotationmode
+#
+# position ecran | code
+# ---------------|------
+#     normal     |  0
+#     droite     |  1
+#     inversé    |  4
+#     gauche     |  3
+
+function normal {
+    echo 0 > $HOME/.bin/rotationmode
+    xrandr -o normal
+    xsetwacom set $idStylus Rotate none
+}
+
+function right {
+    echo 1 > $HOME/.bin/rotationmode
+    xrandr -o right
+    xsetwacom set $idStylus Rotate cw
+}
+
+function inverted {
+    echo 4 > $HOME/.bin/rotationmode
+    xrandr -o inverted
+    xsetwacom set $idStylus Rotate half
+}
+
+function left {
+    echo 3 > $HOME/.bin/rotationmode
+    xrandr -o left
+    xsetwacom set $idStylus Rotate ccw
+}
+
+if [ $# -eq 0 ]; then
+    normal
+else
+    $1 2> /dev/null
+fi

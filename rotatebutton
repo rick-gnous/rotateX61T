@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#*************************#
+#       rotatebutton      #
+#                         #
+#  author: rick@gnous.eu  #
+#      licence: GPL3      #
+#*************************#
+
+mode=$(cat $HOME/.bin/rotationmode)
+case $mode 
+    0)
+        rotateFunction right
+    ;;
+    1) 
+        rotateFunction inverted
+    ;;
+    4) 
+        rotateFunction left
+    ;;
+    *)
+        rotateFunction
+    ;;
+esac
